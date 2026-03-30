@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sisvia Nathans — Portfolio</title>
+<link rel="icon" type="image/png" href="images/face-vector.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF5F2;
+    --near-black: #0D0609;
+    --burgundy: #5C1A2E;
+    --carmine: #C4455E;
+    --dusty: #B5677E;
+    --blush: #DBA8B4;
+    --ink: #1a0a0f;
+    --muted: #8a6570;
+    --nav-h: 64px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--carmine);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--carmine);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(92,26,46,0.12);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(92,26,46,0.08); }
+  .nav-logo {
+    font-family: 'Jost', sans-serif; font-weight: 300;
+    font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    transition: color 0.2s;
+  }
+  .nav-logo:hover { color: var(--carmine); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    position: relative; transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--carmine);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--carmine); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+  /* PAGE TRANSITIONS */
+  .page { display: none; animation: pageIn 0.6s ease both; }
+  .page.active { display: block; }
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HERO */
+  #page-home { padding-top: var(--nav-h); }
+  .hero {
+    min-height: calc(100vh - var(--nav-h));
+    background: var(--cream);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 48px 40px;
+    overflow: hidden; position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; bottom: 0; right: 0;
+    width: 40vw; height: 40vw;
+    background: radial-gradient(circle, rgba(196,69,94,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--dusty);
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(100px, 15vw, 210px);
+    font-weight: 900; line-height: 0.88;
+    letter-spacing: -0.02em; color: var(--near-black);
+    animation: fadeUp 0.9s ease 0.2s both;
+  }
+  .hero-name em {
+    font-style: italic; color: var(--burgundy);
+    display: block; margin-left: 8%;
+  }
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 48px;
+    animation: fadeUp 0.9s ease 0.4s both;
+  }
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; font-style: italic;
+    color: var(--burgundy); max-width: 380px; line-height: 1.4;
+  }
+  .hero-scroll {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Jost', sans-serif; font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .hero-scroll-line {
+    width: 48px; height: 1px; background: var(--dusty);
+    animation: expandLine 1.2s ease 1s both;
+  }
+  @keyframes expandLine { from { width: 0; } to { width: 48px; } }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* BIO SECTION */
+  .bio-section {
+    background: var(--near-black);
+    padding: 100px 80px;
+    display: grid; grid-template-columns: 1fr 360px; gap: 80px;
+    align-items: center; position: relative; overflow: hidden;
+  }
+  .bio-section::before {
+    content: '';
+    position: absolute; top: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(92,26,46,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bio-label {
+    font-family: 'Jost', sans-serif; font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--dusty); margin-bottom: 28px;
+  }
+  .bio-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 3.5vw, 50px); font-weight: 400;
+    color: var(--cream); line-height: 1.2; margin-bottom: 36px;
+  }
+  .bio-body {
+    font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300;
+    line-height: 1.85; color: rgba(250,245,242,0.72); max-width: 520px;
+  }
+  .bio-body p + p { margin-top: 18px; }
+  .bio-photo-wrap {
+    position: relative;
+  }
+  .bio-photo-wrap::before {
+    content: '';
+    position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+    border: 1px solid rgba(196,69,94,0.3);
+    z-index: 0;
+  }
+  .bio-photo {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    display: block; position: relative; z-index: 1;
+    background: rgba(255,255,255,0.06);
+    filter: grayscale(20%);
+  }
+  .bio-photo-placeholder {
+    width: 100%; aspect-ratio: 3/4;
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.2); font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    position: relative; z-index: 1;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* FEATURED PROJECTS */
+  .featured-section { padding: 100px 60px; background: var(--cream); }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 64px; border-bottom: 1px solid rgba(92,26,46,0.15); padding-bottom: 24px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 78px); font-weight: 400; color: var(--burgundy);
+  }
+  .section-link {
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--carmine);
+    text-decoration: none; cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    transition: gap 0.2s;
+  }
+  .section-link:hover { gap: 14px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .project-card {
+    display: flex; flex-direction: column; gap: 18px;
+    cursor: pointer;
+  }
+  .project-card:hover .proj-img-wrap img,
+  .project-card:hover .proj-img-wrap .proj-placeholder { transform: scale(1.03); }
+  .proj-img-wrap {
+    overflow: hidden; position: relative;
+  }
+  .proj-img-wrap img, .proj-img-wrap .proj-placeholder {
+    width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  .proj-placeholder {
+    background: linear-gradient(135deg, #e8ddd9, #d4c4c8);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 12px; letter-spacing: 0.1em;
+  }
+  .proj-overlay {
+    position: absolute; inset: 0; background: rgba(92,26,46,0.75);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .proj-overlay span {
+    font-family: 'Jost', sans-serif; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream);
+  }
+  .project-card:hover .proj-overlay { opacity: 1; }
+  .proj-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500;
+    color: var(--burgundy); text-decoration: underline; text-underline-offset: 4px;
+  }
+  .proj-role {
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--carmine);
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .proj-desc {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    line-height: 1.75; color: var(--ink);
+  }
+  .proj-desc strong { font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    background: var(--near-black);
+    padding: 72px 60px;
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: start;
+  }
+  .footer-left .footer-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400;
+    color: var(--cream); margin-bottom: 12px;
+  }
+  .footer-left p {
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+    color: rgba(250,245,242,0.4); letter-spacing: 0.05em;
+  }
+  .footer-center h4 {
+    font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
+    color: var(--blush); margin-bottom: 10px;
+  }
+  .footer-center p {
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+    color: rgba(250,245,242,0.5); line-height: 1.7;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 14px; align-items: flex-end; }
+  .footer-links a {
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+    letter-spacing: 0.08em; color: rgba(250,245,242,0.6);
+    text-decoration: none; position: relative; transition: color 0.2s;
+  }
+  .footer-links a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 1px; background: var(--carmine);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.3s;
+  }
+  .footer-links a:hover { color: var(--blush); }
+  .footer-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .footer-bottom {
+    background: var(--near-black); padding: 0 60px 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between;
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300;
+    letter-spacing: 0.1em; color: rgba(250,245,242,0.25);
+    padding-top: 24px;
+  }
+
+  /* ===== EXPERIENCE PAGE ===== */
+  #page-experience { padding-top: var(--nav-h); }
+  .exp-hero {
+    background: var(--cream);
+    padding: 80px 60px 60px;
+    position: relative; overflow: hidden;
+  }
+  .exp-hero::after {
+    content: 'EXPERIENCE';
+    position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+    font-family: 'Playfair Display', serif; font-size: 180px;
+    font-weight: 900; color: rgba(92,26,46,0.04);
+    white-space: nowrap; pointer-events: none;
+  }
+  .page-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 90px); font-weight: 400;
+    color: var(--burgundy); line-height: 1;
+    animation: fadeUp 0.7s ease both;
+  }
+  .page-sub {
+    font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300;
+    color: var(--muted); margin-top: 16px; letter-spacing: 0.04em;
+    animation: fadeUp 0.7s ease 0.15s both;
+  }
+
+  .exp-gallery {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+    margin: 0 0 0 0;
+  }
+  .exp-gallery-img {
+    aspect-ratio: 4/3; object-fit: cover;
+    background: linear-gradient(135deg, #d4c4c8, #c4a8b0);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 11px; letter-spacing: 0.08em;
+    overflow: hidden; transition: transform 0.4s;
+  }
+  .exp-gallery-img:hover { transform: scale(1.02); }
+  .exp-gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .exp-cards { padding: 80px 60px; display: flex; flex-direction: column; gap: 3px; }
+  .exp-card {
+    border: 1px solid rgba(92,26,46,0.15);
+    overflow: hidden; transition: border-color 0.3s;
+    background: var(--cream);
+  }
+  .exp-card:hover { border-color: var(--carmine); }
+  .exp-card-header {
+    display: grid; grid-template-columns: 1fr auto;
+    padding: 28px 32px; cursor: pointer;
+    transition: background 0.2s;
+    align-items: start;
+  }
+  .exp-card-header:hover { background: rgba(92,26,46,0.03); }
+  .exp-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 500; color: var(--burgundy);
+    text-decoration: underline; text-underline-offset: 4px;
+    margin-bottom: 6px; cursor: pointer;
+  }
+  .exp-card-title:hover { color: var(--carmine); }
+  .exp-card-org {
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  }
+  .exp-card-meta {
+    text-align: right;
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300;
+    color: var(--muted); letter-spacing: 0.05em;
+  }
+  .exp-card-toggle {
+    display: inline-block; width: 24px; height: 24px;
+    border: 1px solid var(--dusty); border-radius: 50%;
+    text-align: center; line-height: 22px;
+    font-size: 16px; color: var(--carmine);
+    margin-top: 8px; float: right;
+    transition: transform 0.3s, background 0.2s;
+  }
+  .exp-card.open .exp-card-toggle { transform: rotate(45deg); background: var(--carmine); color: var(--cream); }
+  .exp-card-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+    border-top: 0px solid transparent;
+  }
+  .exp-card.open .exp-card-body {
+    max-height: 2000px;
+    border-top: 1px solid rgba(92,26,46,0.1);
+  }
+  .exp-card-inner { padding: 32px; }
+
+  /* Accordion within exp detail pages */
+  .accordion { border-top: 1px solid rgba(92,26,46,0.12); }
+  .accordion-item { border-bottom: 1px solid rgba(92,26,46,0.12); }
+  .accordion-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 400;
+    letter-spacing: 0.04em; color: var(--ink);
+    transition: color 0.2s;
+  }
+  .accordion-header:hover { color: var(--carmine); }
+  .accordion-icon {
+    width: 20px; height: 20px; border: 1px solid var(--dusty); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--carmine); flex-shrink: 0;
+    transition: transform 0.3s, background 0.2s;
+  }
+  .accordion-item.open .accordion-icon { transform: rotate(45deg); background: var(--carmine); color: var(--cream); }
+  .accordion-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .accordion-item.open .accordion-body { max-height: 1000px; }
+  .accordion-content {
+    padding: 0 0 28px 0;
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    line-height: 1.8; color: var(--ink);
+  }
+  .accordion-content p + p { margin-top: 14px; }
+  .accordion-content ul { padding-left: 20px; margin-top: 10px; }
+  .accordion-content li { margin-bottom: 8px; line-height: 1.7; }
+  .accordion-content strong { font-weight: 500; }
+
+  /* ===== DETAIL PAGE (exp detail, project detail) ===== */
+  .detail-page { display: none; }
+  .detail-page.active { display: block; animation: pageIn 0.6s ease both; }
+  .detail-hero {
+    background: var(--cream); padding: 80px 60px 60px;
+    border-bottom: 1px solid rgba(92,26,46,0.1);
+  }
+  .detail-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    cursor: pointer; margin-bottom: 40px; text-decoration: none;
+    transition: color 0.2s; border: none; background: none;
+  }
+  .detail-back:hover { color: var(--carmine); }
+  .detail-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px); font-weight: 400; color: var(--near-black);
+    margin-bottom: 16px;
+  }
+  .detail-subtitle {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    color: var(--muted); letter-spacing: 0.04em;
+  }
+  .detail-dark {
+    background: var(--near-black); padding: 64px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .detail-dark-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 400; color: var(--blush);
+    margin-bottom: 32px;
+  }
+  .detail-light { background: var(--cream); padding: 60px 60px; }
+  .detail-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 400; color: var(--burgundy);
+    margin-bottom: 32px;
+  }
+  .detail-two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  }
+  .detail-body {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    line-height: 1.85; color: rgba(250,245,242,0.75);
+  }
+  .detail-body p + p { margin-top: 14px; }
+  .detail-body-dark {
+    font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300;
+    line-height: 1.85; color: var(--ink);
+  }
+  .detail-body-dark p + p { margin-top: 14px; }
+  .detail-body-dark ul { padding-left: 20px; margin-top: 10px; }
+  .detail-body-dark li { margin-bottom: 8px; }
+  .detail-body-dark strong { font-weight: 500; }
+  .detail-img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+    background: rgba(255,255,255,0.08);
+  }
+  .stat-row {
+    display: flex; gap: 48px; margin-top: 36px;
+  }
+  .stat { }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 400;
+    color: var(--carmine);
+  }
+  .stat-label {
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300;
+    color: rgba(250,245,242,0.5); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* Gallery grid for exp detail */
+  .work-gallery {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+    margin-top: 0;
+  }
+  .work-gallery-item {
+    aspect-ratio: 1; overflow: hidden;
+    background: linear-gradient(135deg, #e8ddd9, #d4c4c8);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 11px;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .work-gallery-item:hover { transform: scale(1.04); }
+  .work-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+  .podcast-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  .podcast-card {
+    background: #111; border-radius: 4px; overflow: hidden;
+    display: grid; grid-template-columns: 140px 1fr;
+  }
+  .podcast-thumb {
+    aspect-ratio: 1; background: var(--near-black);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900;
+    color: #fff; letter-spacing: 0.05em;
+  }
+  .podcast-info { padding: 16px; }
+  .podcast-title { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400; color: #fff; margin-bottom: 4px; }
+  .podcast-ep { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.4); }
+  .podcast-desc { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); margin-top: 8px; line-height: 1.6; }
+
+  /* ===== PROJECTS PAGE ===== */
+  #page-projects { padding-top: var(--nav-h); }
+  .projects-hero { background: var(--cream); padding: 80px 60px 60px; position: relative; overflow: hidden; }
+  .projects-hero::after {
+    content: 'PROJECTS';
+    position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+    font-family: 'Playfair Display', serif; font-size: 180px; font-weight: 900;
+    color: rgba(92,26,46,0.04); white-space: nowrap; pointer-events: none;
+  }
+  .projects-full { padding: 80px 60px; }
+  .projects-intro {
+    max-width: 640px; margin: 0 auto 80px;
+    text-align: center;
+  }
+  .projects-intro p {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300;
+    font-style: italic; color: var(--ink); line-height: 1.75;
+  }
+
+  /* ===== PROJECT DETAIL PAGES ===== */
+  .cta-section {
+    background: var(--burgundy); padding: 72px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400;
+    color: var(--cream); font-style: italic;
+  }
+  .cta-right { }
+  .cta-body { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 300; color: rgba(250,245,242,0.7); line-height: 1.7; margin-bottom: 28px; }
+  .btn {
+    display: inline-block; padding: 14px 32px;
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+    cursor: pointer; border: none; transition: all 0.25s;
+  }
+  .btn-outline {
+    border: 1px solid var(--cream); color: var(--cream); background: transparent;
+    margin-right: 12px;
+  }
+  .btn-outline:hover { background: var(--cream); color: var(--burgundy); }
+  .btn-filled { background: var(--cream); color: var(--burgundy); }
+  .btn-filled:hover { background: var(--blush); }
+  .btn-dark { background: var(--near-black); color: var(--cream); border: 1px solid transparent; }
+  .btn-dark:hover { border-color: var(--cream); background: transparent; }
+
+  /* ===== ABOUT PAGE ===== */
+  #page-about { padding-top: var(--nav-h); }
+  .about-hero {
+    background: var(--cream); padding: 80px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .about-hero-left {}
+  .about-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 90px); font-weight: 400;
+    color: var(--burgundy); line-height: 1; margin-bottom: 32px;
+  }
+  .about-hero-body {
+    font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300;
+    line-height: 1.85; color: var(--ink);
+  }
+  .about-hero-body strong { font-weight: 500; }
+  .about-photo-col { position: relative; }
+  .about-photo-main {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
+    background: linear-gradient(135deg, #d4c4c8, #c4a8b0);
+  }
+  .about-photo-child {
+    position: absolute; bottom: -32px; left: -32px;
+    width: 180px; aspect-ratio: 1; object-fit: cover;
+    border: 4px solid var(--cream);
+    background: linear-gradient(135deg, #ddd, #ccc);
+  }
+  .story-section {
+    background: var(--near-black); padding: 100px 60px;
+    display: grid; grid-template-columns: 200px 1fr; gap: 60px;
+  }
+  .story-nav { position: sticky; top: calc(var(--nav-h) + 24px); height: fit-content; }
+  .story-nav-title {
+    font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dusty); margin-bottom: 20px;
+  }
+  .story-nav ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .story-nav a {
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+    color: rgba(250,245,242,0.4); text-decoration: none; transition: color 0.2s;
+    padding-left: 16px; border-left: 2px solid transparent;
+  }
+  .story-nav a:hover, .story-nav a.active { color: var(--blush); border-left-color: var(--carmine); }
+  .story-content h2 {
+    font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 400;
+    color: var(--blush); margin-bottom: 28px;
+  }
+  .story-content p {
+    font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 300;
+    line-height: 1.85; color: rgba(250,245,242,0.72); margin-bottom: 28px;
+  }
+  .story-content strong { font-weight: 500; color: rgba(250,245,242,0.9); }
+  .story-content a { color: var(--blush); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* IA diagram */
+  .ia-diagram {
+    background: var(--near-black); padding: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+    color: rgba(250,245,242,0.7); line-height: 2;
+  }
+  .ia-diagram .ia-row { padding-left: 0; }
+  .ia-diagram .ia-row.indent-1 { padding-left: 24px; color: var(--blush); }
+  .ia-diagram .ia-row.indent-2 { padding-left: 48px; color: rgba(250,245,242,0.5); }
+
+  /* Color palette display */
+  .palette-row { display: flex; gap: 12px; margin-bottom: 8px; }
+  .palette-swatch { width: 44px; height: 44px; border-radius: 2px; }
+  .palette-label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: rgba(250,245,242,0.6); }
+
+  /* Code snippet */
+  .code-block {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    padding: 20px; font-family: 'Courier New', monospace; font-size: 12px;
+    color: rgba(250,245,242,0.6); line-height: 1.8;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .bio-section { grid-template-columns: 1fr; padding: 80px 40px; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .detail-dark { grid-template-columns: 1fr; }
+    .detail-two-col { grid-template-columns: 1fr; }
+    .about-hero { grid-template-columns: 1fr; }
+    .story-section { grid-template-columns: 1fr; }
+    .cta-section { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+    .hero { padding: 40px 24px 32px; }
+    .hero-name { font-size: clamp(72px, 18vw, 130px); }
+    .bio-section { padding: 60px 24px; }
+    .featured-section, #page-experience .exp-cards,
+    .projects-full, .detail-hero, .detail-dark, .detail-light { padding-left: 24px; padding-right: 24px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .exp-gallery { grid-template-columns: 1fr 1fr; }
+    .work-gallery { grid-template-columns: repeat(2, 1fr); }
+    footer { grid-template-columns: 1fr; }
+    .footer-links { align-items: flex-start; }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#" onclick="showPage('home')">Sisvia Nathans</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" data-page="home">Home</a></li>
+    <li><a href="#" onclick="showPage('experience')" data-page="experience">Experience</a></li>
+    <li><a href="#" onclick="showPage('projects')" data-page="projects">Projects</a></li>
+    <li><a href="#" onclick="showPage('about')" data-page="about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-eyebrow">UX/UI Designer &amp; Developer · Toronto</div>
+    <h1 class="hero-name">Sisvia's<em>Portfolio</em></h1>
+    <div class="hero-bottom">
+      <p class="hero-tagline">"Finding beauty through design and time."</p>
+      <div class="hero-scroll"><div class="hero-scroll-line"></div> Scroll</div>
+    </div>
+  </section>
+
+  <section class="bio-section reveal">
+    <div class="bio-content">
+      <div class="bio-label">About</div>
+      <h2 class="bio-heading">A creative thinker. Finding beauty through design and time.</h2>
+      <div class="bio-body">
+        <p>I'm Sisvia, a UX/UI designer and creative based in Toronto. My work sits at the intersection of design, communication, and technology, shaped by experiences across startups, academic projects, and real-world constraints. As I work toward my June 2026 graduation, I'm focused on creating thoughtful digital experiences that balance creativity with clarity, research, and user needs.</p>
+        <p>I've designed, prototyped, researched, collaborated, and iterated, always with the goal of building work that feels intentional, accessible, and human.</p>
+      </div>
+    </div>
+    <div class="bio-photo-wrap">
+      <img src="images/self-portrait.png" class="bio-photo">
+    </div>
+  </section>
+
+  <section class="featured-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">Featured Projects</h2>
+      <a class="section-link" onclick="showPage('projects')">View All <span>→</span></a>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card" onclick="showProjectDetail('riochi')">
+        <div class="proj-img-wrap">
+          <img src="images/riochi-rentalsinc.png" class="proj-placeholder" alt="Riochi Rentals">
+          <div class="proj-overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="proj-title">Riochi Rentals Inc.</div>
+        <div class="proj-role">Website Developer and Designer</div>
+        <p class="proj-desc"><strong>Riochi Rentals Inc.</strong> is a <strong>short-term rental management company</strong> focused on helping property owners run high-performing Airbnb-style listings without the day-to-day stress. (Case-Study)</p>
+      </div>
+      <div class="project-card" onclick="showProjectDetail('ghc')">
+        <div class="proj-img-wrap">
+          <img src="images/global-healthcore.png" class="proj-placeholder" alt="Global Health Core">
+          <div class="proj-overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="proj-title">Global Health Core Inc.</div>
+        <div class="proj-role">UX/UI Designer</div>
+        <p class="proj-desc"><strong>Global Health Core Inc.</strong> is a health technology startup focused on improving access to high-quality healthcare through thoughtful, user-centred digital solutions.</p>
+      </div>
+      <div class="project-card" onclick="showProjectDetail('dailymail')">
+        <div class="proj-img-wrap">
+          <img src="images/daily-mail.png" class="proj-placeholder" alt="Daily Mail">
+          <div class="proj-overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="proj-title">The Daily Mail Redesign</div>
+        <div class="proj-role">Academic Project</div>
+        <p class="proj-desc">The Daily Mail redesign was an editorial UX project focused on reducing visual clutter while preserving the fast-paced, high-volume nature of a major news platform.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-name">Sisvia Nathans</div>
+      <p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p>
+    </div>
+    <div class="footer-center">
+      <h4>Let's Work Together</h4>
+      <p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:sisvianathans@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/sisvia" target="_blank">LinkedIn</a></li>
+      <li><a href="https://github.com/sisvianathans" target="_blank">Github</a></li>
+    </ul>
+  </footer>
+  <div class="footer-bottom">
+    <span>© 2026 Sisvia Nathans</span>
+    <span>Designed &amp; Built with intention</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EXPERIENCE PAGE
+══════════════════════════════════════════════ -->
+<div id="page-experience" class="page">
+  <div class="exp-hero">
+    <h1 class="page-headline">Professional Experiences</h1>
+    <p class="page-sub">Startups · Student Organizations · University Internships</p>
+  </div>
+
+  <!-- Photo grid with clickable links below — matches reference design -->
+  <div style="padding: 60px 60px 100px; background: var(--cream);">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+
+      <!-- Enactus / Eunoia -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="exp-gallery-img" onclick="showExpDetail('eunoia')" style="cursor:pointer; aspect-ratio:4/3; overflow:hidden;">
+          <img src="images/enactus.jpeg" alt="Enactus" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="text-align:center;">
+          <a onclick="showExpDetail('eunoia')" style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;font-style:italic;color:var(--burgundy);text-decoration:underline;text-underline-offset:4px;cursor:pointer;">Podcast Editor of Eunoia</a>
+          <span style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);"> - Enactus University of Toronto Mississauga</span>
+        </div>
+      </div>
+
+      <!-- Design Hub -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="exp-gallery-img" onclick="showExpDetail('designhub')" style="cursor:pointer; aspect-ratio:4/3; overflow:hidden;">
+          <img src="images/the-designhub.png" alt="Design Hub" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="text-align:center;">
+          <a onclick="showExpDetail('designhub')" style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;font-style:italic;color:var(--burgundy);text-decoration:underline;text-underline-offset:4px;cursor:pointer;">Marketing Associate</a>
+          <span style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);"> - The Design Hub - University of Toronto Mississauga/ Design Club</span>
+        </div>
+      </div>
+
+      <!-- Registrar -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="exp-gallery-img" onclick="showExpDetail('registrar')" style="cursor:pointer; aspect-ratio:4/3; overflow:hidden;">
+          <img src="images/registrar.jpeg" alt="Office of the Registrar" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="text-align:center;">
+          <a onclick="showExpDetail('registrar')" style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;font-style:italic;color:var(--burgundy);text-decoration:underline;text-underline-offset:4px;cursor:pointer;">Project Communications Assistant Intern at the Office of Registrar</a>
+          <span style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);"> – University of Toronto Mississauga</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display:none;">
+    <!-- old accordion content removed -->
+    <div class="exp-card" id="exp-eunoia">
+      <div class="exp-card-header" onclick="toggleExpCard('exp-eunoia')">
+        <div>
+          <div class="exp-card-title">Podcast Editor of Eunoia</div>
+          <div class="exp-card-org">Enactus · University of Toronto Mississauga</div>
+        </div>
+        <div class="exp-card-meta">
+          2023 – 2024<br>
+          <span class="exp-card-toggle">+</span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <div class="exp-card-inner">
+          <div style="display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;">
+            <div>
+              <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:20px;"><strong style="font-weight:500;">Enactus UTM</strong> is a student-led organization at the University of Toronto Mississauga that empowers students to create social and environmental impact through entrepreneurship. <strong style="font-weight:500;">Eunoia</strong> is a podcast-based project that represents small entrepreneurial businesses that share their personal stories and expert insights with the UTM community and beyond.</p>
+              <div class="accordion">
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">My Contributions <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p>As a podcast editor, I supported in-person recordings by setting up microphones and equipment, and occasionally recording audio and video using my phone. After each session, I organized and gathered all raw clips, then edited both audio and video using platforms such as <strong>CapCut and iMovie.</strong></p>
+                    <p>My work included trimming and syncing clips, adjusting lighting and sound, cropping visuals, and adding intro and outro music to create cohesive final pieces. I edited and finalized podcast episodes for both audio and video formats, ensuring they were properly uploaded to Spotify and the organization's website.</p>
+                    <p>I collaborated closely with the president and team members to coordinate tasks and meet deadlines. Several edited episodes and promotional clips reached strong engagement, with some receiving up to <strong>15.6K views</strong> and others over <strong>2K views</strong>. My work focused primarily on two episodes: <em>Arbiv's journey to creating a sustainable sunscreen solution</em> and <em>Crafting Creativity: The Kidaper Way.</em></p>
+                  </div></div>
+                </div>
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">Team Representative (Nationals Competition) <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p>In <strong>May 2024</strong>, I participated in the <strong>Enactus National Competition</strong> held in downtown Toronto, where Enactus teams from across Canada presented the projects they had developed and scaled over the years. I had the opportunity to present alongside three members from <strong>Enactus UTM</strong>, representing multiple initiatives including <strong>Squirl, Pluto, Eunoia,</strong> and <strong>SustainHub.</strong></p>
+                    <p>Together, we presented our collective impact, personal growth, and how each project contributes to sustainability, social change, and entrepreneurial development. The experience strengthened my skills in public speaking, collaboration, and communicating complex ideas in a clear, human-centered way.</p>
+                  </div></div>
+                </div>
+              </div>
+              <!-- Podcast cards -->
+              <div class="podcast-cards" style="margin-top:32px;">
+                <div class="podcast-card">
+                  <div class="podcast-thumb">EUNOIA.</div>
+                  <div class="podcast-info">
+                    <div class="podcast-title">Crafting Creativity: The Kidaper Way</div>
+                    <div class="podcast-ep">Dec 30 · EUNOIA · Save on Spotify</div>
+                    <div class="podcast-desc">In this episode of EUNOIA, we explore how Kidaper redefines innovation by combining state-of-the-art technology, captivating design, and robust security solutions.</div>
+                  </div>
+                </div>
+                <div class="podcast-card">
+                  <div class="podcast-thumb">EUNOIA.</div>
+                  <div class="podcast-info">
+                    <div class="podcast-title">Sunscreen Solution</div>
+                    <div class="podcast-ep">Dec 30 · EUNOIA · Save on Spotify</div>
+                    <div class="podcast-desc">In this episode of EUNOIA, we shine a spotlight on Arbiv, revolutionizing the sunscreen industry with sustainability at its core.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--near-black);padding:28px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:#fff;letter-spacing:0.05em;">EUNOIA.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Design Hub -->
+    <div class="exp-card" id="exp-designhub">
+      <div class="exp-card-header" onclick="toggleExpCard('exp-designhub')">
+        <div>
+          <div class="exp-card-title">Marketing Associate</div>
+          <div class="exp-card-org">The Design Hub · University of Toronto Mississauga/ Design Club</div>
+        </div>
+        <div class="exp-card-meta">
+          2023 – 2024<br>
+          <span class="exp-card-toggle">+</span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <div class="exp-card-inner">
+          <div style="display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;">
+            <div>
+              <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:24px;"><strong style="font-weight:500;">The Design Hub</strong> is a student-led creative community at UTM built for aspiring designers across disciplines. It serves as a collaborative space where students can develop their skills, explore design thinking, and build meaningful portfolios through hands-on workshops, events, and real-world projects. The hub focuses on growth, experimentation, and accessibility—connecting creativity with practical tools, mentorship, and opportunities that help designers turn ideas into impact.</p>
+              <div class="accordion">
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">My Contributions <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p>As a Marketing Associate at The Design Hub, I focused on creating engaging, on-brand content to promote our design community and drive student participation. Using Canva, I designed social media posts that followed established brand guidelines for case competitions, workshops, guest speakers, winners, and club collaborations. I also helped record short-form video content (reels), managed stories, and supported event promotion across platforms. In addition to content creation, I assisted with coordinating workshops and events to ensure smooth execution and strong engagement.</p>
+                  </div></div>
+                </div>
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">My Impact <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p>Over the span of under a year, the Design Hub grew to engage <strong>300+ UTM students and clubs</strong> across campus. Social content consistently reached <strong>1K–2K views</strong>, with strong interactive engagement through polls, messages, and comments. Posts directly encouraged student participation in design competitions, workshops, and case challenges—creating opportunities for students to build <strong>real-world design case studies</strong> and strengthen their portfolios.</p>
+                  </div></div>
+                </div>
+              </div>
+              <!-- Sample work gallery -->
+              <div style="margin-top:32px;">
+                <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.08em;color:var(--burgundy);margin-bottom:16px;text-transform:uppercase;">Sample Work</div>
+                <div class="work-gallery">
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">Design Competition post</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">Workshop photo</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">New Design Opportunity</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">Meet Our Host</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">Q&A Gamified Learning</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">We're Hiring post</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">Event photo</span></div>
+                  <div class="work-gallery-item"><span style="font-size:10px;color:var(--muted);">Workshop photo</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--near-black);padding:28px;display:flex;align-items:center;justify-content:center;">
+              <div style="text-align:center;">
+                <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:900;color:#fff;letter-spacing:0.05em;line-height:1.3;">THE<br><span style="font-size:28px;">DESIGN</span><br>HUB</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Office of Registrar -->
+    <div class="exp-card" id="exp-registrar">
+      <div class="exp-card-header" onclick="toggleExpCard('exp-registrar')">
+        <div>
+          <div class="exp-card-title">Project Communications Assistant Intern</div>
+          <div class="exp-card-org">Office of the Registrar · University of Toronto Mississauga</div>
+        </div>
+        <div class="exp-card-meta">
+          2024<br>
+          <span class="exp-card-toggle">+</span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <div class="exp-card-inner">
+          <div style="display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;">
+            <div>
+              <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:4px;"><strong style="font-weight:500;">The Office of the Registrar</strong> is part of the higher-education administration sector, specifically student services. Its purpose is to support undergraduate students with:</p>
+              <ul style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.9;color:var(--ink);padding-left:20px;margin-bottom:24px;">
+                <li>Enrolment &amp; registration</li>
+                <li>Academic advising &amp; degree planning</li>
+                <li>Financial aid, scholarships, and awards</li>
+                <li>Tuition and financial planning</li>
+                <li>Course enrolment support &amp; program selection</li>
+                <li>Transcripts, documentation, and academic record management</li>
+                <li>Final exams &amp; accommodations coordination</li>
+                <li>Convocation preparation</li>
+              </ul>
+              <div class="accordion">
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">My Role <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p><strong>Project Communications Intern – Office of the Registrar, University of Toronto Mississauga</strong></p>
+                    <p>In this role, I operated at the intersection of <strong>research, UX, communications, and institutional systems</strong>, supporting one of UTM's most student-facing administrative units. My work focused on improving how critical academic information—registration, enrolment, tuition, and advising—is communicated to students across digital platforms.</p>
+                    <p>I collaborated with communications staff, designers, and administrative stakeholders while independently owning major research and redesign initiatives. The scope of my work extended beyond execution; I was trusted to <strong>analyze existing systems, identify gaps, and propose strategic, student-centred improvements</strong> that aligned with institutional standards and branding.</p>
+                  </div></div>
+                </div>
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">What I Did? <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p><strong>Research, Strategy &amp; Analysis</strong></p>
+                    <p>I conducted <strong>comparative research across UTM, UTSC, and UTSG websites</strong>, evaluating layout structure, navigation clarity, accessibility, tone, and consistency. This work informed a detailed evaluation of the <strong>Fall/Winter Registration Guide</strong>, where I identified strengths, usability issues, and opportunities for improvement.</p>
+                    <p>I also produced in-depth critiques of key student resources, including the <strong>Program Selection Guide, Course Enrolment Workbook,</strong> and <strong>Academic Advising pages</strong>, with a strong focus on uncovering confusion points such as credit-based standing, OSAP explanations, and enrolment terminology.</p>
+                    <p>This research culminated in a formal evaluation report with actionable recommendations—bridging user experience insights with institutional realities.</p>
+                    <p><strong>Web Redesign &amp; Digital Prototyping</strong></p>
+                    <p>Building on my research, I redesigned the <strong>Fall/Winter Registration Guide</strong> as a <strong>high-fidelity Figma prototype</strong>. My redesign focused on: improving visual hierarchy and scannability; structuring content into clear, logical sections; introducing collapsible components to reduce cognitive overload; ensuring consistency with Registrar branding and accessibility standards.</p>
+                    <p>I also developed a <strong>one-page referral flyer concept</strong> and a <strong>cross-campus comparison table</strong> highlighting best practices in student-facing design across U of T campuses.</p>
+                    <p><strong>Communications &amp; Multimedia Creation</strong></p>
+                    <p>In addition to web and UX work, I supported communications initiatives by producing <strong>multimedia content</strong> for student outreach. This included: filming and editing an on-campus <strong>Program Selection Instagram reel</strong>; writing scripts, storyboards, and shot lists; editing videos with attention to pacing, transitions, and audio sync; designing a <strong>Student Testimonial Proposal</strong>, including interview questions; capturing photography at events, open houses, and student programs.</p>
+                  </div></div>
+                </div>
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">My Impact <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p>My work contributed to <strong>clearer, more accessible student communication</strong> around some of the most complex and stressful parts of the academic experience. By identifying friction points and redesigning key resources, I helped surface opportunities to reduce confusion, improve navigation, and humanize institutional messaging.</p>
+                    <p>Internally, my research and prototypes supported informed conversations around future improvements to Registrar-owned digital resources. Externally, my communications work helped the office better connect with students through modern, engaging formats.</p>
+                  </div></div>
+                </div>
+                <div class="accordion-item">
+                  <div class="accordion-header" onclick="toggleAccordion(this)">What I Learned <div class="accordion-icon">+</div></div>
+                  <div class="accordion-body"><div class="accordion-content">
+                    <p>This internship accelerated my <strong>personal and professional growth</strong> in meaningful ways. I gained exposure to the inner workings of student services within a large institution and learned how policy, design, and communication intersect at scale.</p>
+                    <ul>
+                      <li>How to translate complex systems into student-friendly experiences</li>
+                      <li>How to present and defend design decisions to diverse stakeholders</li>
+                      <li>How to manage ambiguity, ask the right questions, and create structure where none exists</li>
+                      <li>Leadership experience managing and delegating tasks to two interns</li>
+                      <li>Stronger confidence in cross-functional collaboration and public speaking</li>
+                    </ul>
+                    <p>Most importantly, I learned how to <strong>think strategically while executing thoughtfully</strong>, a skill I carry into every project I take on.</p>
+                  </div></div>
+                </div>
+              </div>
+              <div style="margin-top:32px;">
+                <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.08em;color:var(--burgundy);margin-bottom:16px;text-transform:uppercase;">My first time taking event photography :)</div>
+                <div style="background:var(--burgundy);padding:32px;">
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+                    <div style="aspect-ratio:4/3;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">Event photo</span></div>
+                    <div style="aspect-ratio:4/3;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">Event photo</span></div>
+                    <div style="aspect-ratio:4/3;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">Event photo</span></div>
+                    <div style="aspect-ratio:4/3;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">Event photo</span></div>
+                    <div style="aspect-ratio:4/3;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">Event photo</span></div>
+                    <div style="aspect-ratio:4/3;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">Event photo</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--cream);padding:28px;border:1px solid rgba(92,26,46,0.1);">
+              <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Institution</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--burgundy);line-height:1.3;">University of Toronto Mississauga</div>
+              <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(92,26,46,0.1);">
+                <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Office</div>
+                <div style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--ink);">Office of the Registrar</div>
+              </div>
+              <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(92,26,46,0.1);">
+                <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Recognized as</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--carmine);">MVP Award</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-name">Sisvia Nathans</div>
+      <p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p>
+    </div>
+    <div class="footer-center">
+      <h4>Let's Work Together</h4>
+      <p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:sisvianathans@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/sisvia" target="_blank">LinkedIn</a></li>
+      <li><a href="https://github.com/sisvianathans" target="_blank">Github</a></li>
+    </ul>
+  </footer>
+  <div class="footer-bottom">
+    <span>© 2026 Sisvia Nathans</span>
+    <span>Designed &amp; Built with intention</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EXP DETAIL: EUNOIA
+══════════════════════════════════════════════ -->
+<div id="page-exp-eunoia" class="detail-page">
+  <div class="detail-hero">
+    <button class="detail-back" onclick="showPage('experience')">← Back to Experience</button>
+    <h1 class="detail-title">Eunoia</h1>
+    <p class="detail-subtitle">Podcast Editor · Enactus University of Toronto Mississauga</p>
+  </div>
+
+  <div style="background:var(--cream); padding:60px;">
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:start;">
+      <div>
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:28px;"><strong style="font-weight:500;">Enactus UTM</strong> is a student-led organization at the University of Toronto Mississauga that empowers students to create social and environmental impact through entrepreneurship. The team designs and runs projects that use business and innovation to address real-world issues, focusing on sustainability, community development, and social good. <strong style="font-weight:500;">Eunoia</strong> is a podcast-based project that represents small entrepreneurial businesses that share their personal stories and expert insights with the UTM community and beyond.</p>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">My Contributions <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p>As a podcast editor, I supported in-person recordings by setting up microphones and equipment, and occasionally recording audio and video using my phone. After each session, I organized and gathered all raw clips, then edited both audio and video using platforms such as <strong>CapCut and iMovie.</strong></p>
+              <p>My work included trimming and syncing clips, adjusting lighting and sound, cropping visuals, and adding intro and outro music to create cohesive final pieces. I edited and finalized podcast episodes for both audio and video formats, ensuring they were properly uploaded to Spotify and the organization's website.</p>
+              <p>I collaborated closely with the president and team members to coordinate tasks and meet deadlines. Several edited episodes and promotional clips reached strong engagement, with some receiving up to <strong>15.6K views</strong> and others over <strong>2K views</strong>. My work focused primarily on two episodes: <em>Arbiv's journey to creating a sustainable sunscreen solution</em> and <em>Crafting Creativity: The Kidaper Way.</em></p>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">Team Representative (Nationals Competition) <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p>In <strong>May 2024</strong>, I participated in the <strong>Enactus National Competition</strong> held in downtown Toronto, where Enactus teams from across Canada presented the projects they had developed and scaled over the years. I had the opportunity to present alongside three members from <strong>Enactus UTM</strong>, representing multiple initiatives including <strong>Squirl, Pluto, Eunoia,</strong> and <strong>SustainHub.</strong></p>
+              <p>Together, we presented our collective impact, personal growth, and how each project contributes to sustainability, social change, and entrepreneurial development. The experience strengthened my skills in public speaking, collaboration, and communicating complex ideas in a clear, human-centered way.</p>
+            </div></div>
+          </div>
+        </div>
+        <!-- Podcast cards -->
+        <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+  
+  <div>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/21KrVqE8NNkoJJc0mhsxgT?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.75;color:var(--ink);margin-top:16px;">In this episode of EUNOIA, we explore how Kiuloper redefines innovation by combining state-of-the-art technology, captivating design, and robust security solutions. Join us as we dive into their holistic approach to helping brands stand out in a competitive landscape.</p>
+  </div>
+
+  <div>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/37cQ0WWHFaQpUgkpP9Mdvh?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.75;color:var(--ink);margin-top:16px;">In this episode of EUNOIA, we shine a spotlight on Arbre, revolutionizing the sunscreen industry with sustainability at its core. Join us as we dive into their inspiring journey—from identifying the environmental impact of traditional sunscreens to developing eco-friendly solutions.</p>
+  </div>
+
+</div>
+      </div>
+      <div style="background:var(--near-black);padding:48px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
+        <span style="font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:#fff;letter-spacing:0.05em;">EUNOIA.</span>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-left"><div class="footer-name">Sisvia Nathans</div><p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p></div><div class="footer-center"><h4>Let's Work Together</h4><p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p></div><ul class="footer-links"><li><a href="mailto:sisvianathans@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/sisvia">LinkedIn</a></li><li><a href="https://github.com/sisvianathans">Github</a></li></ul></footer>
+  <div class="footer-bottom"><span>© 2026 Sisvia Nathans</span><span>Designed &amp; Built with intention</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EXP DETAIL: DESIGN HUB
+══════════════════════════════════════════════ -->
+<div id="page-exp-designhub" class="detail-page">
+  <div class="detail-hero">
+    <button class="detail-back" onclick="showPage('experience')">← Back to Experience</button>
+    <h1 class="detail-title">The Design Hub</h1>
+    <p class="detail-subtitle">Marketing Associate · University of Toronto Mississauga / Design Club</p>
+  </div>
+
+  <div style="background:var(--cream);padding:60px;">
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:start;">
+      <div>
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:28px;"><strong style="font-weight:500;">The Design Hub</strong> is a student-led creative community at UTM built for aspiring designers across disciplines. It serves as a collaborative space where students can develop their skills, explore design thinking, and build meaningful portfolios through hands-on workshops, events, and real-world projects. The hub focuses on growth, experimentation, and accessibility—connecting creativity with practical tools, mentorship, and opportunities that help designers turn ideas into impact.</p>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">My Contributions <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p>As a Marketing Associate at The Design Hub, I focused on creating engaging, on-brand content to promote our design community and drive student participation. Using Canva, I designed social media posts that followed established brand guidelines for case competitions, workshops, guest speakers, winners, and club collaborations. I also helped record short-form video content (reels), managed stories, and supported event promotion across platforms. In addition to content creation, I assisted with coordinating workshops and events to ensure smooth execution and strong engagement.</p>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">My Impact <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p>Over the span of under a year, the Design Hub grew to engage <strong>300+ UTM students and clubs</strong> across campus. Social content consistently reached <strong>1K–2K views</strong>, with strong interactive engagement through polls, messages, and comments. Posts directly encouraged student participation in design competitions, workshops, and case challenges—creating opportunities for students to build <strong>real-world design case studies</strong> and strengthen their portfolios.</p>
+            </div></div>
+          </div>
+        </div>
+        <div style="margin-top:40px;">
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--burgundy);margin-bottom:20px;">Sample Work</div>
+          <div class="work-gallery">
+            <div class="work-gallery-item"><img src="images/the-designhub.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Design post</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-two.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Workshop photo</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-one.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Design post</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-five.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Design post</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-four.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Event photo</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-three.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Design post</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-six.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Design post</span>'"></div>
+            <div class="work-gallery-item"><img src="images/post-seven.png" alt="Sample work" onerror="this.parentElement.innerHTML='<span style=font-size:10px;color:var(--muted)>Design post</span>'"></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--near-black);padding:48px;display:flex;align-items:center;justify-content:center;aspect-ratio:1;">
+        <div style="text-align:center;color:#fff;font-family:'Playfair Display',serif;font-weight:900;line-height:1.2;">
+          <div style="font-size:14px;letter-spacing:0.1em;">THE</div>
+          <div style="font-size:32px;">DESIGN</div>
+          <div style="font-size:14px;letter-spacing:0.1em;">HUB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-left"><div class="footer-name">Sisvia Nathans</div><p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p></div><div class="footer-center"><h4>Let's Work Together</h4><p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p></div><ul class="footer-links"><li><a href="mailto:sisvianathans@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/sisvia">LinkedIn</a></li><li><a href="https://github.com/sisvianathans">Github</a></li></ul></footer>
+  <div class="footer-bottom"><span>© 2026 Sisvia Nathans</span><span>Designed &amp; Built with intention</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EXP DETAIL: REGISTRAR
+══════════════════════════════════════════════ -->
+<div id="page-exp-registrar" class="detail-page">
+  <div class="detail-hero">
+    <button class="detail-back" onclick="showPage('experience')">← Back to Experience</button>
+    <h1 class="detail-title">The Office of the Registrar</h1>
+    <p class="detail-subtitle">Project Communications Assistant Intern · University of Toronto Mississauga</p>
+  </div>
+
+  <div style="background:var(--cream);padding:60px;">
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:start;">
+      <div>
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:8px;"><strong style="font-weight:500;">The Office of the Registrar</strong> is part of the higher-education administration sector, specifically student services. Its purpose is to support undergraduate students with:</p>
+        <ul style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:2;color:var(--ink);padding-left:20px;margin-bottom:28px;">
+          <li>Enrolment &amp; registration</li>
+          <li>Academic advising &amp; degree planning</li>
+          <li>Financial aid, scholarships, and awards</li>
+          <li>Tuition and financial planning</li>
+          <li>Course enrolment support &amp; program selection</li>
+          <li>Transcripts, documentation, and academic record management</li>
+          <li>Final exams &amp; accommodations coordination</li>
+          <li>Convocation preparation</li>
+        </ul>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">My Role <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p><strong>Project Communications Intern – Office of the Registrar, University of Toronto Mississauga</strong></p>
+              <p>In this role, I operated at the intersection of <strong>research, UX, communications, and institutional systems</strong>, supporting one of UTM's most student-facing administrative units. My work focused on improving how critical academic information—registration, enrolment, tuition, and advising—is communicated to students across digital platforms.</p>
+              <p>I collaborated with communications staff, designers, and administrative stakeholders while independently owning major research and redesign initiatives. I was trusted to <strong>analyze existing systems, identify gaps, and propose strategic, student-centred improvements</strong> that aligned with institutional standards and branding.</p>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">What I Did? <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p><strong>Research, Strategy &amp; Analysis</strong></p>
+              <p>I conducted <strong>comparative research across UTM, UTSC, and UTSG websites</strong>, evaluating layout structure, navigation clarity, accessibility, tone, and consistency. This informed a detailed evaluation of the <strong>Fall/Winter Registration Guide</strong>, where I identified strengths, usability issues, and opportunities for improvement.</p>
+              <p><strong>Web Redesign &amp; Digital Prototyping</strong></p>
+              <p>Building on my research, I redesigned the <strong>Fall/Winter Registration Guide</strong> as a <strong>high-fidelity Figma prototype</strong>. My redesign focused on improving visual hierarchy and scannability, structuring content into clear logical sections, introducing collapsible components to reduce cognitive overload, and ensuring consistency with Registrar branding and accessibility standards.</p>
+              <p>I also developed a <strong>one-page referral flyer concept</strong> and a <strong>cross-campus comparison table</strong> highlighting best practices in student-facing design across U of T campuses.</p>
+              <p><strong>Communications &amp; Multimedia Creation</strong></p>
+              <p>In addition to web and UX work, I supported communications initiatives by producing <strong>multimedia content</strong> for student outreach. This included filming and editing an on-campus <strong>Program Selection Instagram reel</strong>, writing scripts, storyboards, and shot lists, designing a <strong>Student Testimonial Proposal</strong>, and capturing photography at events, open houses, and student programs.</p>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">My Impact <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p>My work contributed to <strong>clearer, more accessible student communication</strong> around some of the most complex and stressful parts of the academic experience. By identifying friction points and redesigning key resources, I helped surface opportunities to reduce confusion, improve navigation, and humanize institutional messaging.</p>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">What I Learned <div class="accordion-icon">+</div></div>
+            <div class="accordion-body"><div class="accordion-content">
+              <p>This internship accelerated my <strong>personal and professional growth</strong> in meaningful ways.</p>
+              <ul>
+                <li>How to translate complex systems into student-friendly experiences</li>
+                <li>How to present and defend design decisions to diverse stakeholders</li>
+                <li>How to manage ambiguity, ask the right questions, and create structure where none exists</li>
+                <li>Leadership experience managing and delegating tasks to two interns</li>
+                <li>Stronger confidence in cross-functional collaboration and public speaking</li>
+              </ul>
+              <p>Most importantly, I learned how to <strong>think strategically while executing thoughtfully</strong>, a skill I carry into every project I take on.</p>
+            </div></div>
+          </div>
+        </div>
+        <!-- Event photography section -->
+        <div style="margin-top:40px;">
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--burgundy);margin-bottom:20px;">My first time taking event photography :)</div>
+          <div style="background:var(--burgundy);padding:24px;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+              <div style="aspect-ratio:4/3;overflow:hidden;"><img src="images/registrar.JPEG" alt="Event" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='rgba(255,255,255,0.1)'"></div>
+              <div style="aspect-ratio:4/3;overflow:hidden;"><img src="images/post-eleven.JPEG" alt="Event" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='rgba(255,255,255,0.08)'"></div>
+              <div style="aspect-ratio:4/3;overflow:hidden;"><img src="images/post-nine.JPEG" alt="Event" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='rgba(255,255,255,0.12)'"></div>
+              <div style="aspect-ratio:4/3;overflow:hidden;"><img src="images/post-twelve.JPEG" alt="Event" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='rgba(255,255,255,0.1)'"></div>
+              <div style="aspect-ratio:4/3;overflow:hidden;"><img src="images/post-eight.JPEG" alt="Event" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='rgba(255,255,255,0.08)'"></div>
+              <div style="aspect-ratio:4/3;overflow:hidden;"><img src="images/post-ten.JPEG" alt="Event" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='rgba(255,255,255,0.06)'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img src="images/kaneff.jpg" alt="UTM Registrar" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" onerror="this.style.background='linear-gradient(135deg,#e8ddd9,#d4c4c8)'">
+        <div style="background:var(--cream);padding:28px;border:1px solid rgba(92,26,46,0.1);margin-top:3px;">
+          <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Recognized as</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--carmine);">MVP Award</div>
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--muted);margin-top:4px);">University of Toronto Mississauga</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-left"><div class="footer-name">Sisvia Nathans</div><p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p></div><div class="footer-center"><h4>Let's Work Together</h4><p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p></div><ul class="footer-links"><li><a href="mailto:sisvianathans@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/sisvia">LinkedIn</a></li><li><a href="https://github.com/sisvianathans">Github</a></li></ul></footer>
+  <div class="footer-bottom"><span>© 2026 Sisvia Nathans</span><span>Designed &amp; Built with intention</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROJECTS PAGE
+══════════════════════════════════════════════ -->
+<div id="page-projects" class="page">
+  <div class="projects-hero">
+    <h1 class="page-headline">Featured Projects</h1>
+    <p class="page-sub">Case Studies · UX/UI · Development</p>
+  </div>
+
+  <div class="projects-full">
+    <div class="projects-grid reveal">
+      <div class="project-card" onclick="showProjectDetail('riochi')">
+        <div class="proj-img-wrap">
+          <img src="images/riochi-rentalsinc.png" class="proj-placeholder" alt="Riochi Rentals">
+          <div class="proj-overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="proj-title">Riochi Rentals Inc.</div>
+        <div class="proj-role">Website Developer and Designer</div>
+        <p class="proj-desc"><strong>Riochi Rentals Inc.</strong> is a short-term rental management company focused on helping property owners run high-performing Airbnb-style listings.</p>
+      </div>
+
+      <div class="project-card" onclick="showProjectDetail('ghc')">
+        <div class="proj-img-wrap">
+          <img src="images/global-healthcore.png" class="proj-placeholder" alt="Global Health Core">
+          <div class="proj-overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="proj-title">Global Health Core Inc.</div>
+        <div class="proj-role">UX/UI Designer</div>
+        <p class="proj-desc"><strong>Global Health Core Inc.</strong> is a health technology startup focused on improving access to high-quality healthcare. Health Tech Startup · Selected work under NDA</p>
+      </div>
+
+      <div class="project-card" onclick="showProjectDetail('dailymail')">
+        <div class="proj-img-wrap">
+          <img src="images/daily-mail.png" class="proj-placeholder" alt="Daily Mail Redesign">
+          <div class="proj-overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="proj-title">The Daily Mail Redesign</div>
+        <div class="proj-role">Academic Project</div>
+        <p class="proj-desc">A UX case study addressing cognitive load and navigation challenges in news media.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-name">Sisvia Nathans</div>
+      <p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p>
+    </div>
+    <div class="footer-center">
+      <h4>Let's Work Together</h4>
+      <p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:sisvianathans@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/sisvia" target="_blank">LinkedIn</a></li>
+      <li><a href="https://github.com/sisvianathans" target="_blank">Github</a></li>
+    </ul>
+  </footer>
+
+  <div class="footer-bottom">
+    <span>© 2026 Sisvia Nathans</span>
+    <span>Designed &amp; Built with intention</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT DETAIL: RIOCHI RENTALS
+══════════════════════════════════════════════ -->
+<div id="page-proj-riochi" class="detail-page">
+  <div class="detail-hero">
+    <button class="detail-back" onclick="showPage('projects')">← Back to Projects</button>
+    <h1 class="detail-title">Riochi Rentals Inc.</h1>
+    <p class="detail-subtitle">Designed and developed a mid/high-fidelity demo website from scratch for an Airbnb property management business, focusing on a modern user-friendly interface.</p>
+  </div>
+
+  <div class="detail-dark">
+    <div>
+      <div class="detail-dark-title">The Design Process</div>
+      <div class="accordion" style="border-color:rgba(255,255,255,0.12);">
+        <div class="accordion-item" style="border-color:rgba(255,255,255,0.12);">
+          <div class="accordion-header" style="color:rgba(250,245,242,0.8);" onclick="toggleAccordion(this)">The Challenge <div class="accordion-icon">+</div></div>
+          <div class="accordion-body"><div class="accordion-content" style="color:rgba(250,245,242,0.7);">
+            <p>Airbnb hosts often struggle to manage properties while maintaining quality guest experiences. They need a centralized solution that handles day-to-day operations, guest communication, and service coordination without compromising their personal touch.</p>
+          </div></div>
+        </div>
+        <div class="accordion-item" style="border-color:rgba(255,255,255,0.12);">
+          <div class="accordion-header" style="color:rgba(250,245,242,0.8);" onclick="toggleAccordion(this)">The Solution <div class="accordion-icon">+</div></div>
+          <div class="accordion-body"><div class="accordion-content" style="color:rgba(250,245,242,0.7);">
+            <p>A comprehensive platform that centralizes essential property management services, emphasizing peace of mind, efficiency, and trust. The design enables hosts to manage rentals seamlessly from anywhere while maintaining quality standards.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.04);padding:32px;border:1px solid rgba(255,255,255,0.08);">
+      <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dusty);margin-bottom:20px;">Project Info</div>
+      <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:rgba(250,245,242,0.6);line-height:2.2;">
+        <div><span style="color:var(--blush);">Role</span> — Website Developer &amp; Designer</div>
+        <div><span style="color:var(--blush);">Type</span> — Case Study</div>
+        <div><span style="color:var(--blush);">Tools</span> — Figma, HTML/CSS/JS</div>
+        <div><span style="color:var(--blush);">Status</span> — Completed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-light">
+    <h2 class="detail-section-title">Wireframes and Information Structure (IA)</h2>
+    <div class="detail-two-col">
+      <div>
+        <p class="detail-body-dark" style="margin-bottom:20px;">The low-fidelity wireframe shows the website's style and structure. Focuses on intuitive navigation and a clear information hierarchy for property listings.</p>
+        <div style="background:#f5f0ed;padding:24px;border:1px solid rgba(92,26,46,0.1);">
+          <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">Lo-fi wireframe placeholder</div>
+          <img src="images/wireframe.png" style="width:100%;height:auto;display:block;" alt="Lo-fi wireframe">
+        </div>
+      </div>
+      <div>
+        <p class="detail-body-dark" style="margin-bottom:20px;">To ensure clarity and ease of navigation, I mapped out the site's information architecture before moving into visual design.</p>
+        <div class="ia-diagram">
+          <div class="ia-row">Main Navigation</div>
+          <div class="ia-row indent-1">├── Services</div>
+          <div class="ia-row indent-2">│ ├── Property Management</div>
+          <div class="ia-row indent-2">│ ├── Guest Management</div>
+          <div class="ia-row indent-2">│ └── Service Management</div>
+          <div class="ia-row indent-1">├── About</div>
+          <div class="ia-row indent-1">├── Featured Properties</div>
+          <div class="ia-row indent-2">│ └── Property Listings</div>
+          <div class="ia-row indent-1">├── Testimonials</div>
+          <div class="ia-row indent-1">└── Contact</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div style="background:var(--cream);padding:80px 60px;">
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:400;color:var(--near-black);margin-bottom:60px;">Visual Design</h2>
+
+  <!-- Color Palette -->
+  <div style="display:grid;grid-template-columns:160px 1fr;gap:40px;align-items:start;margin-bottom:60px;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--near-black);">Color Palette</div>
+    <div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;">
+        <div>
+          <div style="height:120px;background:#50723C;margin-bottom:12px;"></div>
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;color:var(--ink);">Primary Green</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--muted);">#50723C</div>
+        </div>
+        <div>
+          <div style="height:120px;background:#785E25;margin-bottom:12px;"></div>
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;color:var(--ink);">Accent Green</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--muted);">#785E25</div>
+        </div>
+        <div>
+          <div style="height:120px;background:#42382B;margin-bottom:12px;"></div>
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;color:var(--ink);">Brown</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--muted);">#42382B</div>
+        </div>
+        <div>
+          <div style="height:120px;background:#122223;margin-bottom:12px;"></div>
+          <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:400;color:var(--ink);">Dark</div>
+          <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--muted);">#122223</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div style="display:grid;grid-template-columns:160px 1fr;gap:40px;align-items:start;padding-top:40px;border-top:1px solid rgba(92,26,46,0.1);">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--near-black);">Typography</div>
+    <div>
+      <div style="font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Primary Font</div>
+      <div style="font-family:'Arial',sans-serif;">
+        <div style="font-size:32px;font-weight:700;color:var(--ink);margin-bottom:8px;">Arial</div>
+        <div style="font-size:14px;color:var(--ink);margin-bottom:4px;">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+        <div style="font-size:14px;color:var(--ink);margin-bottom:4px;">abcdefghijklmnopqrstuvwxyz</div>
+        <div style="font-size:14px;color:var(--ink);margin-bottom:12px;">1234567890</div>
+        <div style="font-size:12px;color:var(--muted);">font-family: Arial, sans-serif</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Front-End Development -->
+<div style="background:#f5f0ed;padding:80px 60px;border-top:1px solid rgba(92,26,46,0.08);">
+  <div style="display:grid;grid-template-columns:280px 1fr 1fr;gap:60px;align-items:start;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:400;color:var(--near-black);line-height:1.1;">Front-End Development</h2>
+    <div>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:20px;">Built with HTML, CSS, and JavaScript, emphasizing clean structure, responsiveness, and ease of use.</p>
+      <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:20px;">The implementation uses Flexbox for adaptive layouts across screen sizes.</p>
+      <ul style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:2;color:var(--ink);padding-left:20px;">
+        <li>Responsive layouts with Flexbox</li>
+        <li>Smooth hover states and transitions</li>
+        <li>Sticky navigation and optimized scrolling</li>
+      </ul>
+    </div>
+    <div style="background:var(--near-black);padding:28px;font-family:'Courier New',monospace;font-size:13px;color:rgba(250,245,242,0.7);line-height:2;">
+      &lt;div class="container"&gt;<br>
+      &nbsp;&nbsp;&lt;nav class="sticky"&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#"&gt;Home&lt;/a&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#"&gt;Services&lt;/a&gt;<br>
+      &nbsp;&nbsp;&lt;/nav&gt;<br>
+      &nbsp;&nbsp;&lt;main&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Content --&gt;<br>
+      &nbsp;&nbsp;&lt;/main&gt;<br>
+      &lt;/div&gt;
+    </div>
+  </div>
+</div>
+  <div class="cta-section">
+    <div class="cta-title">Ready to See it Live?</div>
+    <div class="cta-right">
+      <p class="cta-body">Experience the full platform and see how it streamlines property management for Airbnb hosts.</p>
+      <a class="btn btn-outline" href="https://sisvianathans.github.io/riochi-rentals-inc./" target="_blank">View Live Website</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left"><div class="footer-name">Sisvia Nathans</div><p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p></div>
+    <div class="footer-center"><h4>Let's Work Together</h4><p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p></div>
+    <ul class="footer-links"><li><a href="mailto:sisvianathans@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/sisvia">LinkedIn</a></li><li><a href="https://github.com/sisvianathans">Github</a></li></ul>
+  </footer>
+  <div class="footer-bottom"><span>© 2026 Sisvia Nathans</span><span>Designed &amp; Built with intention</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT DETAIL: GLOBAL HEALTH CORE
+══════════════════════════════════════════════ -->
+<div id="page-proj-ghc" class="detail-page">
+  <div class="detail-hero">
+    <button class="detail-back" onclick="showPage('projects')">← Back to Projects</button>
+    <h1 class="detail-title">Global Health Core Inc.</h1>
+    <p class="detail-subtitle">Health Tech Startup · Selected work under NDA</p>
+  </div>
+
+  <div style="background:var(--cream);padding:80px 60px;">
+    <div style="display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:start;">
+      <div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:400;color:var(--near-black);margin-bottom:24px;">The Company</h2>
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);"><strong>Global Health Core Inc.</strong> was a health technology startup focused on improving access to high-quality healthcare through thoughtful, user-centred digital solutions. Founded in 2024, the company brings together technology, design, and accessibility to help both individuals and healthcare providers navigate complex healthcare systems more effectively. The company's work focused on creating tools that streamline operations for providers and empower users to make informed decisions about their care. Global Health Core operated with a strong commitment to accessibility, innovation, and impact—using technology not just to optimize systems, but to make healthcare more inclusive, efficient, and human-centred.</p>
+      </div>
+      <img src="images/people.png" style="width:100%;height:auto;display:block;" alt="Global Health Core">
+    </div>
+  </div>
+
+  <div style="background:var(--cream);padding:0 60px 60px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:400;color:var(--near-black);margin-bottom:48px;">Project Overview</h2>
+    <div class="accordion">
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">My Role <div class="accordion-icon">+</div></div>
+        <div class="accordion-body"><div class="accordion-content">
+          <p>As a UX/UI Designer, I worked across marketing and product design, supporting brand growth and early product development in a fast-paced startup environment. Collaborated closely with designers and stakeholders, iterating quickly based on feedback and shifting priorities.</p>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">Challenges <div class="accordion-icon">+</div></div>
+        <div class="accordion-body"><div class="accordion-content">
+          <ul>
+            <li>Designing a healthcare platform without a medical background required translating complex information into clear, accessible, and user-friendly experiences while maintaining trust and accuracy.</li>
+            <li>Entering a competitive healthcare technology market required designing a platform that could clearly differentiate itself while remaining simple, trustworthy, and easy for users to navigate.</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">My Contributions <div class="accordion-icon">+</div></div>
+        <div class="accordion-body"><div class="accordion-content">
+          <ul>
+            <li>Designed social media assets to support product promotion and strengthen brand awareness</li>
+            <li>Built a mid-fidelity Figma prototype, including the <strong>Services page</strong> and an <strong>AI chatbot experience</strong></li>
+            <li>Co-developed LinkedIn content alongside a graphic designer, contributing to increased post engagement</li>
+            <li>Adapted designs rapidly in response to real-time feedback and evolving product requirements</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">Skills <div class="accordion-icon">+</div></div>
+        <div class="accordion-body"><div class="accordion-content">
+          <ul>
+            <li>UX/UI Design</li><li>Figma</li><li>Wireframing &amp; Prototyping</li>
+            <li>Visual Communication</li><li>Collaboration</li><li>Basic Front-End Awareness (HTML/CSS)</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">How has it shaped me as a designer? <div class="accordion-icon">+</div></div>
+        <div class="accordion-body"><div class="accordion-content">
+          <p>This experience taught me that while creativity is an important part of design, understanding user needs and the context of the product is essential. Designing within the healthcare industry required a strong focus on research, clarity, accuracy, and user trust. I learned how thoughtful research directly informs stronger design decisions, and how consistency with brand identity is crucial in creating a cohesive experience. Viewing the platform from the user's perspective also introduced me to A/B testing and interpreting results, shaping how I approach usability and decision-making today.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left"><div class="footer-name">Sisvia Nathans</div><p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p></div>
+    <div class="footer-center"><h4>Let's Work Together</h4><p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p></div>
+    <ul class="footer-links"><li><a href="mailto:sisvianathans@gmail.com">Email</a></li><li><a href="https://www.linkedin.com/in/sisvia">LinkedIn</a></li><li><a href="https://github.com/sisvianathans">Github</a></li></ul>
+  </footer>
+  <div class="footer-bottom"><span>© 2026 Sisvia Nathans</span><span>Designed &amp; Built with intention</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT DETAIL: DAILY MAIL
+══════════════════════════════════════════════ -->
+<div id="page-proj-dailymail" class="detail-page">
+  <div class="detail-hero">
+    <button class="detail-back" onclick="showPage('projects')">← Back to Projects</button>
+    <h1 class="detail-title">The Daily Mail Redesign</h1>
+    <p class="detail-subtitle">A UX case study addressing cognitive load and navigation challenges in news media.</p>
+  </div>
+
+  <div style="background:var(--cream);padding:80px 60px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;color:var(--near-black);margin-bottom:28px;">The Tabloid</h2>
+    <p class="detail-body-dark" style="max-width:720px;"><strong>The Daily Mail</strong> is a UK news platform that features breaking news, entertainment, lifestyle, sports content, and more. We chose to redesign the site because the original layout presents an overwhelming amount of information, frequent advertisements, and a lack of clear structure. By identifying these issues, we developed design solutions that prioritize clarity, usability, and improved content organization in the final redesign.</p>
+  </div>
+
+  <div style="background:var(--near-black);padding:60px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;color:var(--cream);margin-bottom:48px;">Project Overview</h2>
+    <div class="accordion" style="max-width:720px;border-top-color:rgba(255,255,255,0.12);">
+      <div class="accordion-item" style="border-color:rgba(255,255,255,0.12);">
+        <div class="accordion-header" style="color:rgba(250,245,242,0.8);" onclick="toggleAccordion(this)">My Contributions <div class="accordion-icon">+</div></div>
+        <div class="accordion-body"><div class="accordion-content" style="color:rgba(250,245,242,0.7);">
+          <ul>
+            <li>Designed and prototyped the sports page and site navigation</li>
+            <li>Collaborated with teammates on the selection of the colour palette and typography</li>
+            <li>Prioritized and refined advertisement placement to improve readability and user flow</li>
+            <li>Prototyped article layouts to support clearer content hierarchy</li>
+            <li>Designed and prototyped the site footer</li>
+            <li>Collaborated on heuristic evaluation to assess usability and identify design improvements</li>
+            <li>Produced the final redesign report documenting the design process and outcomes</li>
+          </ul>
+          <div style="margin-top:28px;display:flex;gap:16px;">
+            <a class="btn btn-outline" href="https://www.figma.com/proto/DC7jABDuBwQC45r5ftngWJ/CCT204---DailyMail-Prototype?page-id=0%3A1&type=design&node-id=211-27&viewport=442%2C358%2C0.03&t=tzj7KVo6ftTSVXeC-1&scaling=scale-down&starting-point-node-id=211%3A27" target="_blank">Visual Demo</a>
+            <a class="btn" style="background:var(--cream);color:var(--near-black);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;padding:14px 32px;" href="images/dailymail-report.pdf" target="_blank">Report</a>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Slideshow -->
+    <div style="margin-top:48px;position:relative;width:100%;height:0;padding-top:56.25%;box-shadow:0 2px 8px 0 rgba(63,69,81,0.16);overflow:hidden;border-radius:8px;">
+      <iframe loading="lazy" style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;padding:0;margin:0;"
+        src="https://www.canva.com/design/DAGAKIE2yCM/-fBDRJOlux_J0RBfz3hidg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+      </iframe>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left"><div class="footer-name">Sisvia Nathans<p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p></div>
+    <div class="footer-center"><h4>Let's Work Together</h4><p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p>
+    <ul class="footer-links"><li><a href="mailto:sisvianathans@gmail.com">Email</a></li><li><a href="https//www.linkedin.com/in/sisvia:">LinkedIn</a></li><li><a href="https://github.com/sisvianathans">Github</a></li></ul>
+  </footer>
+  <div class="footer-bottom"><span>© 2026 Sisvia Nathans</span><span>Designed &amp; Built with intention</span>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <!-- Hero: photo + intro -->
+  <div class="about-hero">
+    <div class="about-hero-left">
+      <h1>About Me</h1>
+      <div class="about-hero-body">
+        <p><strong>Born and raised in Canada as a Sri Lankan creative,</strong> I've always been drawn to art and making things, even when I didn't fully know where that curiosity would lead. As digital design became more accessible, I found a space where creativity and technology could come together in a way that felt natural to me.</p>
+        <p style="margin-top:18px;">During my undergraduate studies, I began exploring that intersection more seriously — thinking not just about visuals, but about structure, interaction, and user experience.</p>
+        <p style="margin-top:18px;">I'm drawn to building thoughtful digital experiences — whether through interface design, storytelling, or developing ideas into tangible products that create real impact.</p>
+      </div>
+    </div>
+    <div class="about-photo-col">
+      <img src="images/gradphoto.png" class="about-photo-main" alt="Sisvia">
+      <img src="images/childhood.jpeg" class="about-photo-child" alt="Childhood photo">
+    </div>
+  </div>
+
+  <!-- My Story: continues in same cream background -->
+  <div style="background:var(--cream);padding:80px 60px;border-top:1px solid rgba(92,26,46,0.08);">
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:60px;max-width:1200px;">
+
+      <!-- Left label -->
+      <div style="position:sticky;top:calc(var(--nav-h) + 24px);height:fit-content;">
+        <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--dusty);margin-bottom:16px;">My Journey</div>
+        <div style="width:32px;height:1px;background:var(--carmine);"></div>
+      </div>
+
+      <!-- Right content -->
+      <div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;color:var(--burgundy);margin-bottom:40px;">My Story</h2>
+
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:24px;">I'm currently pursuing a double major in <strong style="font-weight:500;">Communication, Culture, Information and Technology and Professional Writing</strong> at the University of Toronto, with an expected graduation in <strong style="font-weight:500;">June 2026.</strong></p>
+
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:24px;">My journey into design began with <strong style="font-weight:500;color:var(--burgundy);">Enactus</strong>, where I worked as a podcast editor, recording and editing interviews with small entrepreneurial businesses — an experience that later led to participation in a national competition in Toronto, where I developed confidence in public speaking in front of judges and students from across Canada.</p>
+
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:24px;">My first internship was with the startup <strong style="font-weight:500;">Global Health Core Inc.</strong>, where I worked as a UX/UI Designer. This role marked my first experience designing a healthcare service portal and solidified my interest in digital design. Working in a fast-paced startup environment pushed me to think quickly, adapt, and design with real-world impact in mind.
+
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);margin-bottom:24px;">I was involved in <strong style="font-weight:500;">The DesignHub</strong> at the University of Toronto, where I created social media posts, led and participated in a case competition.</p>
+
+        <p style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.85;color:var(--ink);">Those experiences led me to pursue an internship at the <strong style="font-weight:500;">Office of the Registrar</strong> as a Project Communications Assistant, where I participated in projects such as student modules, student interviews, filmmaking, and photography. This role strengthened my ability to collaborate with stakeholders, communicate ideas clearly, and work with tools such as SharePoint in a more structured, institutional setting.</p>
+
+        <!-- Education + Skills -->
+        <div style="margin-top:60px;padding-top:48px;border-top:1px solid rgba(92,26,46,0.1);display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+          <div>
+            <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dusty);margin-bottom:20px;">Education</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--burgundy);margin-bottom:8px;">University of Toronto Mississauga</p>
+            <p style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:var(--ink);line-height:1.7;">Double Major — Communication, Culture, Information & Technology and Professional Writing</p>
+            <p style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--muted);margin-top:8px;">Expected Graduation: June 2026</p>
+          </div>
+          <div>
+            <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dusty);margin-bottom:20px;">Skills</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">UX/UI Design</span>
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">Figma</span>
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">HTML/CSS</span>
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">Canva</span>
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">Prototyping</span>
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">Photography</span>
+              <span style="font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:var(--burgundy);border:1px solid rgba(92,26,46,0.25);padding:6px 14px;">Video Editing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-name">Sisvia Nathans</div>
+      <p>UX/UI Designer &amp; Developer<br>Toronto, Canada · 2026</p>
+    </div>
+    <div class="footer-center">
+      <h4>Let's Work Together</h4>
+      <p>I'm always open to discussing new projects,<br>creative ideas, or opportunities to be part of your vision.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:sisvianathans@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/sisvia" target="_blank">LinkedIn</a></li>
+      <li><a href="https://github.com/sisvianathans" target="_blank">Github</a></li>
+    </ul>
+  </footer>
+  <div class="footer-bottom">
+    <span>© 2026 Sisvia Nathans</span>
+    <span>Designed &amp; Built with intention</span>
+  </div>
+</div>
+
+<script>
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+  function animateRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+  animateRing();
+  document.querySelectorAll('a, button, [onclick]').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '6px'; cursor.style.height = '6px'; ring.style.width = '48px'; ring.style.height = '48px'; ring.style.opacity = '0.8'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.5'; });
+  });
+
+  // ── PAGES ──
+  const pages = ['home','experience','projects','about'];
+  function showPage(id) {
+    document.querySelectorAll('.page, .detail-page').forEach(p => { p.classList.remove('active'); });
+    const target = document.getElementById('page-' + id);
+    if (target) { target.classList.add('active'); window.scrollTo(0,0); }
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === id || a.dataset.page === id.split('-')[0]);
+    });
+    initReveal();
+  }
+  function showExpDetail(slug) {
+    document.querySelectorAll('.page, .detail-page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-exp-' + slug);
+    if (target) { target.classList.add('active'); window.scrollTo(0,0); }
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.page === 'experience'));
+    initReveal();
+  }
+  function showProjectDetail(slug) {
+    document.querySelectorAll('.page, .detail-page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-proj-' + slug);
+    if (target) { target.classList.add('active'); window.scrollTo(0,0); }
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.page === 'projects'));
+    initReveal();
+  }
+  // Nav links click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); });
+  });
+
+  // ── NAV SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── ACCORDION ──
+  function toggleAccordion(header) {
+    const item = header.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+    item.classList.toggle('open', !isOpen);
+  }
+
+  // ── EXP CARDS ──
+  function toggleExpCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // ── SCROLL REVEAL ──
+  function initReveal() {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => { el.classList.remove('visible'); observer.observe(el); });
+  }
+  initReveal();
+
+  // ── SLIDESHOW ──
+  const slides = [
+    { title: 'THE DAILY MAIL PROTOTYPE', sub: 'By Ahd, Olga, Vedant, Kaneen, Sisvia', tags: ['Goal', 'Objectives & KPIs', 'User goals'], color: '#dde8f0' },
+    { title: 'RESEARCH FINDINGS', sub: 'Heuristic Evaluation Results', tags: ['Cognitive Overload', 'Navigation Issues', 'Ad Placement'], color: '#e8f0dd' },
+    { title: 'REDESIGN OUTCOMES', sub: 'Final Prototype Highlights', tags: ['Cleaner Layout', 'Better Hierarchy', 'Improved Flow'], color: '#f0dde8' },
+  ];
+  let currentSlide = 0;
+  function renderSlide() {
+    const s = slides[currentSlide];
+    const el = document.getElementById('slideshow');
+    if (!el) return;
+    el.style.background = `linear-gradient(135deg, ${s.color}, ${s.color}cc)`;
+    document.getElementById('slide-content').innerHTML = `
+      <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(0,0,0,0.4);margin-bottom:16px;">Slide ${currentSlide+1} / ${slides.length}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--near-black);margin-bottom:10px;">${s.title}</div>
+      <div style="font-family:'Jost',sans-serif;font-size:13px;font-weight:300;color:rgba(0,0,0,0.6);margin-bottom:20px;">${s.sub}</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">${s.tags.map(t=>`<div style="background:var(--carmine);color:#fff;padding:6px 16px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">${t}</div>`).join('')}</div>`;
+  }
+  function nextSlide() { currentSlide = (currentSlide+1) % slides.length; renderSlide(); }
+  function prevSlide() { currentSlide = (currentSlide-1+slides.length) % slides.length; renderSlide(); }
+  // ── PERSIST PAGE ON RELOAD ──
+window.addEventListener('beforeunload', () => {
+  const activePage = document.querySelector('.page.active, .detail-page.active');
+  if (activePage) localStorage.setItem('lastPage', activePage.id);
+});
+
+// On load, restore last page
+const lastPage = localStorage.getItem('lastPage');
+if (lastPage) {
+  const target = document.getElementById(lastPage);
+  if (target) {
+    document.querySelectorAll('.page, .detail-page').forEach(p => p.classList.remove('active'));
+    target.classList.add('active');
+    const pageId = lastPage.replace('page-', '').split('-')[0];
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === pageId);
+    });
+    initReveal();
+  }
+}
+</script>
+</body>
+</html>
